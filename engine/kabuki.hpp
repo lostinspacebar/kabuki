@@ -9,7 +9,7 @@
 #ifndef KABUKI_H_
 #define KABUKI_H_
 
-#include "utility/log.hpp"
+#include "engine.hpp"
 
 namespace kabuki
 {

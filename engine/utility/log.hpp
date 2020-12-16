@@ -17,13 +17,13 @@ namespace kabuki::utility
     {
     public:
         log(const char *tag);
-        template<typename... Args> void trace(const char *fmt, Args... args)
-        {
-            _log->trace(fmt, args...);
-        }
         template<typename... Args> void debug(const char *fmt, Args... args)
         {
             _log->debug(fmt, args...);
+        }
+        template<typename... Args> void info(const char *fmt, Args... args)
+        {
+            _log->info(fmt, args...);
         }
         template<typename... Args> void warn(const char *fmt, Args... args)
         {

@@ -3,6 +3,12 @@
 
 int main(char **argv, int argc)
 {
-    kabuki::utility::log log("Main");
-    log.error("This is a test.");
+    kabuki::engine engine;
+    kabuki::window *window = engine.create_window("KABUKI 0.1", 1280, 720);
+
+    while(window->is_close_pending() == false)
+    {
+        window->present();
+        engine.think();
+    }
 }

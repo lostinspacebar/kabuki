@@ -19,7 +19,10 @@ project(Kabuki_Test)
 link_directories(${GLEW_LIBRARIES} ${GLFW_LIBRARIES} ${SPDLOG_LIBRARIES})
 
 # add the executable
-add_executable(${PROJECT_NAME} main.cpp ./engine/utility/log.cpp)
+add_executable(${PROJECT_NAME} main.cpp 
+                               ./engine/engine.cpp 
+                               ./engine/window.hpp 
+                               ./engine/utility/log.cpp)
 
 # add includes
 target_include_directories(${PROJECT_NAME} PRIVATE ${GLEW_INCLUDES} ${GLFW_INCLUDES} ${SPDLOG_INCLUDES})

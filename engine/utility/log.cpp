@@ -12,6 +12,7 @@ namespace kabuki::utility
 {
     log::log(const char *tag)
     {
+        spdlog::default_logger()->set_level(spdlog::level::info);
         _log = spdlog::default_logger()->clone(tag);
     }
 }

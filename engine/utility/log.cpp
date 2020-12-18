@@ -10,9 +10,14 @@
 
 namespace kabuki::utility
 {
+    std::unique_ptr<log> log::create(const char *tag)
+    {
+        return std::unique_ptr<log>(new log(tag));
+    }
+
     log::log(const char *tag)
     {
         spdlog::default_logger()->set_level(spdlog::level::info);
-        _log = spdlog::default_logger()->clone(tag);
+        _impl_log = spdlog::default_logger()->clone(tag);
     }
 }

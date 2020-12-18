@@ -11,21 +11,35 @@
 #include "utility/log.hpp"
 #include "window.hpp"
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 namespace kabuki
 {
     class engine
     {
     public:
-        engine();
+        static engine& initialize(const char *title, int width, int height)
+        {
+            static engine singleton(title, width, height);
+            return singleton;
+        }
+
+        // A single engine frame / think iteration.
+        void tick();
+
+        // Gets whether the engine is still alive and running.
+        bool is_running()
+        {
+            return _is_running;
+        }
+
+        // Cleanup
         ~engine();
-        window *create_window(const char *title, int width, int height);
-        void think();
 
     private:
-        utility::log *_log;
+        engine(const char *title, int width, int height);
+        
+        bool _is_running = true;
+        std::unique_ptr<window> _main_window;
+        std::unique_ptr<utility::log> _log;
     };
 }
 

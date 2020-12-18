@@ -13,28 +13,57 @@
 
 namespace kabuki::utility 
 {
+    class log;
+
     class log
     {
     public:
-        log(const char *tag);
+        /**
+         * Creates a Log instance with the specified tag. 
+         * 
+         * @param   tag Tag to added to every log message from this Log.
+         */
+        static std::unique_ptr<log> create(const char *tag);
+        
+        /**
+         * Writes to the log with the DEBUG log level.
+         */
         template<typename... Args> void debug(const char *fmt, Args... args)
         {
-            _log->debug(fmt, args...);
+            _impl_log->debug(fmt, args...);
         }
+
+        /**
+         * Writes to the log with the INFO log level.
+         */
         template<typename... Args> void info(const char *fmt, Args... args)
         {
-            _log->info(fmt, args...);
+            _impl_log->info(fmt, args...);
         }
+
+        /**
+         * Writes to the log with the WARNING log level.
+         */
         template<typename... Args> void warn(const char *fmt, Args... args)
         {
-            _log->warn(fmt, args...);
+            _impl_log->warn(fmt, args...);
         }
+
+        /**
+         * Writes to the log with the ERROR log level.
+         */
         template<typename... Args> void error(const char *fmt, Args... args)
         {
-            _log->error(fmt, args...);
+            _impl_log->error(fmt, args...);
         }
     private:
-        std::shared_ptr<spdlog::logger> _log;
+        /**
+         * Private constructor
+         */
+        log(const char *tag);
+
+        // Implementation specific log instance
+        std::shared_ptr<spdlog::logger> _impl_log;
     };
 }
 

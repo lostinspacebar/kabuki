@@ -10,9 +10,9 @@
 
 namespace kabuki::utility
 {
-    std::unique_ptr<log> log::create(const char *tag)
+    std::shared_ptr<log> log::create(const char *tag)
     {
-        return std::unique_ptr<log>(new log(tag));
+        return std::shared_ptr<log>(new log(tag));
     }
 
     log::log(const char *tag)

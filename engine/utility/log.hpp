@@ -23,7 +23,7 @@ namespace kabuki::utility
          * 
          * @param   tag Tag to added to every log message from this Log.
          */
-        static std::unique_ptr<log> create(const char *tag);
+        static std::shared_ptr<log> create(const char *tag);
         
         /**
          * Writes to the log with the DEBUG log level.

@@ -11,11 +11,38 @@
 
 namespace kabuki
 {
-    window::window(const char *title, int width, int height)
+    window::window(const char *title, int width, int height, uint32_t window_flags) : engine_component("window")
     {
-        _log = utility::log::create("window");
+        Uint32 flags = SDL_WINDOW_OPENGL;
 
-        _sdl_window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL);
+        SDL_DisplayMode dm;
+        SDL_GetDesktopDisplayMode(0, &dm);
+
+        if(width == 0 && height == 0)
+        {
+            width = dm.w;
+            height = dm.h;
+        }
+        if(window_flags & window_flags::FULLSCREEN)
+        {
+            if(dm.w == width && dm.h == height)
+            {
+                flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+            }
+            else
+            {
+                flags |= SDL_WINDOW_FULLSCREEN;
+            }
+        }
+        if(window_flags & window_flags::BORDERLESS)
+        {
+            flags |= SDL_WINDOW_BORDERLESS;
+        }
+        if(window_flags & window_flags::RESIZABLE)
+        {
+            flags |= SDL_WINDOW_RESIZABLE;
+        }
+        _sdl_window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
         if(_sdl_window == NULL)
         {
             _log->error("Window could not be created! SDL_Error: %s\n", SDL_GetError());

@@ -11,12 +11,19 @@
 #ifndef KABUKI_WINDOW_H_
 #define KABUKI_WINDOW_H_
 
-#include "utility/log.hpp"
+#include "engine_component.hpp"
 #include <SDL.h>
 
 namespace kabuki
 {
-    class window
+    enum window_flags : uint32_t
+    {
+        FULLSCREEN      = 1,
+        RESIZABLE       = 1 << 1,
+        BORDERLESS      = 1 << 2
+    };
+
+    class window : public engine_component
     {
     public:
 
@@ -39,20 +46,18 @@ namespace kabuki
         /**
          * Private constructor.
          * 
-         * @param title     Title for the window
-         * @param width     Width of the window in pixels
-         * @param height    Height of the window in pixels
+         * @param title             Title for the window
+         * @param width             Width of the window in pixels
+         * @param height            Height of the window in pixels
+         * @param window_flags      Extra flags for the window
          */
-        window(const char *title, int width, int height);
+        window(const char *title, int width, int height, uint32_t window_flags);
 
         // Underlying SDL window handle.
         SDL_Window *_sdl_window;
 
         // Underlying SDL OpenGL context
         SDL_GLContext _sdl_gl_context;
-
-        // Log
-        std::unique_ptr<utility::log> _log;
     };
 }
 

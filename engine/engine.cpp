@@ -10,9 +10,8 @@
 
 namespace kabuki
 {
-    engine::engine(const char *title, int width, int height)
+    engine::engine(const char *title, int width, int height, uint32_t window_flags) : engine_component("engine")
     {
-        _log = utility::log::create("engine");
         _log->info("KABUKI GAME ENGINE 0.1");
         _log->info("----------------------");
         _log->info("Initializing OpenGL...");
@@ -31,7 +30,7 @@ namespace kabuki
         SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
         // Create the main window
-        _main_window = std::unique_ptr<window>(new window(title, width, height));
+        _main_window = std::unique_ptr<window>(new window(title, width, height, window_flags));
 
         // All done
         _log->info("Engine ready.");

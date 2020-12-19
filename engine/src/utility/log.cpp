@@ -6,7 +6,7 @@
  *          instead of a logging implementation directly.
  */
 
-#include "log.hpp"
+#include "utility/log.hpp"
 
 namespace kabuki::utility
 {

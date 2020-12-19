@@ -29,6 +29,9 @@ namespace kabuki
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
         SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
+        // Setup input manager
+        _input_manager = std::make_unique<input::input_manager>();
+
         // Create the main window
         _main_window = std::unique_ptr<window>(new window(title, width, height, window_flags));
 
@@ -47,6 +50,10 @@ namespace kabuki
         SDL_Event sdl_event;
         if(SDL_PollEvent(&sdl_event))
         {
+            // Let the input manager handle any input events
+            _input_manager->process_event(sdl_event);
+
+            // Handle any engine level events.
             switch(sdl_event.type)
             {
                 case SDL_QUIT:

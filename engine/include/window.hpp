@@ -33,7 +33,8 @@ namespace kabuki
         void make_current();
 
         /**
-         * Update the contents of the window with what's been drawn to its back buffers so far.
+         * Update the contents of the window with what's been drawn to its 
+         * back buffers so far.
          */
         void present();
 

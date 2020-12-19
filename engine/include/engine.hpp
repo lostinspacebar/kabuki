@@ -8,6 +8,7 @@
 #ifndef KABUKI_ENGINE_H_
 #define KABUKI_ENGINE_H_
 
+#include "input/input_manager.hpp"
 #include "engine_component.hpp"
 #include "window.hpp"
 
@@ -44,6 +45,8 @@ namespace kabuki
             return singleton;
         }
 
+        inline const input::input_manager &input_manager() const { return *_input_manager; }
+
         /**
          * Have the engine go through a single think cycle or "frame".
          */
@@ -52,10 +55,7 @@ namespace kabuki
         /**
          * Gets whether the engine is currently running.
          */
-        bool is_running()
-        {
-            return _is_running;
-        }
+        bool is_running() { return _is_running; }
 
         // Cleanup
         ~engine();
@@ -64,6 +64,7 @@ namespace kabuki
         engine(const char *title, int width, int height, uint32_t window_flags);
         
         bool _is_running = true;
+        std::unique_ptr<input::input_manager> _input_manager;
         std::unique_ptr<window> _main_window;
     };
 }

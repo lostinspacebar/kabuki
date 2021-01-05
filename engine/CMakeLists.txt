@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
 
-# variables for libraries
-set(KABUKI_LIBRARIES ${SDL2_LIBRARIES} PARENT_SCOPE)
-set(KABUKI_INCLUDES ${SDL2_INCLUDES} "./engine/include" PARENT_SCOPE)
-
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:__cplusplus")
@@ -29,18 +25,15 @@ add_subdirectory(lib/spdlog EXCLUDE_FROM_ALL)
 target_link_libraries(${PROJECT_NAME} spdlog)
 
 # OpenAL
+set(CMAKE_BUILD_TYPE_SAVED "${CMAKE_BUILD_TYPE}")
+set(CMAKE_BUILD_TYPE "Release")
 add_subdirectory(lib/openal EXCLUDE_FROM_ALL)
 target_link_libraries(${PROJECT_NAME} OpenAL)
+set(CMAKE_BUILD_TYPE "${CMAKE_BUILD_TYPE_SAVED}")
 
 # SDL2
 add_subdirectory(lib/sdl2 EXCLUDE_FROM_ALL)
 target_link_libraries(${PROJECT_NAME} SDL2 SDL2main)
-
-get_cmake_property(_variableNames VARIABLES)
-list (SORT _variableNames)
-foreach (_variableName ${_variableNames})
-    message(STATUS "${_variableName}=${${_variableName}}")
-endforeach()
 
 # add includes
 target_include_directories(${PROJECT_NAME} PRIVATE "./include")

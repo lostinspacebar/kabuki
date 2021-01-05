@@ -6,8 +6,6 @@
  */
 
 // This is needed so GLEW loads the static library instead of the DLL
-#define GLEW_STATIC
-
 #ifndef KABUKI_WINDOW_H_
 #define KABUKI_WINDOW_H_
 

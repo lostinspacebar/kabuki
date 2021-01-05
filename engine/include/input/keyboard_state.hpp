@@ -5,6 +5,9 @@
  * @brief   Global keyboard state
  */
 
+#ifndef KABUKI_INPUT_KEYBOARD_STATE_H
+#define KABUKI_INPUT_KEYBOARD_STATE_H
+
 #include "input_codes.hpp"
 #include <SDL.h>
 
@@ -20,3 +23,5 @@ namespace kabuki::input
         bool _key_pressed[keyboard_key::NUMBER_OF_KEYS];
     };
 }
+
+#endif

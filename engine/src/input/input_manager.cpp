@@ -12,7 +12,7 @@ namespace kabuki::input
 {
     input_manager::input_manager()
     {
-        _keyboard = std::make_shared<keyboard_state>();
+        _keyboard = std::make_unique<keyboard_state>();
     }
 
     void input_manager::process_event(SDL_Event event)

@@ -6,6 +6,9 @@
  *          events and notifies any subscribers.
  */
 
+#ifndef KABUKI_INPUT_MANAGER_H_
+#define KABUKI_INPUT_MANAGER_H_
+
 #include "input/keyboard_state.hpp"
 #include <memory>
 
@@ -24,9 +27,11 @@ namespace kabuki::input
         /**
          * Get the current keyboard state.
          */
-        inline const keyboard_state &keyboard() const { return *_keyboard; }
+        inline const keyboard_state *keyboard() const { return _keyboard.get(); }
 
     private:
         std::unique_ptr<keyboard_state> _keyboard;
     };
 }
+
+#endif

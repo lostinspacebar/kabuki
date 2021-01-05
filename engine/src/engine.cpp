@@ -32,6 +32,9 @@ namespace kabuki
         // Setup input manager
         _input_manager = std::make_unique<input::input_manager>();
 
+        // Create main stage
+        _stage = std::make_unique<stage>(_input_manager.get());
+
         // Create the main window
         _main_window = std::unique_ptr<window>(new window(title, width, height, window_flags));
 
@@ -52,6 +55,9 @@ namespace kabuki
         {
             // Let the input manager handle any input events
             _input_manager->process_event(sdl_event);
+
+            // Move events on stage forward
+            _stage->tick();
 
             // Handle any engine level events.
             switch(sdl_event.type)

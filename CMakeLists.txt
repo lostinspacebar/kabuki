@@ -13,11 +13,7 @@ project(Kabuki_Test)
 link_directories(${KABUKI_LIBRARIES})
 
 # add the executable
-add_executable(${PROJECT_NAME} main.cpp 
-                               ./engine/src/engine.cpp 
-                               ./engine/src/window.cpp 
-                               ./engine/src/input/keyboard.cpp 
-                               ./engine/src/utility/log.cpp)
+add_executable(${PROJECT_NAME} main.cpp)
 
 # add includes
 target_include_directories(${PROJECT_NAME} PRIVATE ${KABUKI_INCLUDES})

@@ -27,7 +27,12 @@ target_link_libraries(${PROJECT_NAME} Kabuki)
 # JANK. This is to copy over SDL2 and OpenAL shared libraries. Need to do this
 # better. Or maybe not. Who cares for now.
 message(STATUS "Output Directory is ${CMAKE_CURRENT_BINARY_DIR}")
-file(GLOB OPENAL_DLLS "${OpenAL_BINARY_DIR}/*.dll")
-file(COPY ${OPENAL_DLLS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy
+                   "${CMAKE_SOURCE_DIR}/engine/lib/OpenAL32-Release.dll"
+                   ${CMAKE_CURRENT_BINARY_DIR}/OpenAL32.dll)
 file(GLOB SDL2_DLLS "${SDL2_BINARY_DIR}/*.dll")
-file(COPY ${SDL2_DLLS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy
+                   ${SDL2_DLLS}
+                   ${CMAKE_CURRENT_BINARY_DIR}/)

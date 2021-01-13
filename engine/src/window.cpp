@@ -11,7 +11,7 @@
 
 namespace kabuki
 {
-    window::window(const char *title, int width, int height, uint32_t window_flags) : engine_component("window")
+    window::window(std::string title, int width, int height, uint32_t window_flags) : engine_component("window")
     {
         Uint32 flags = SDL_WINDOW_OPENGL;
 
@@ -42,10 +42,10 @@ namespace kabuki
         {
             flags |= SDL_WINDOW_RESIZABLE;
         }
-        _sdl_window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
+        _sdl_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
         if(_sdl_window == NULL)
         {
-            _log->error("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+            log()->error("Window could not be created! SDL_Error: %s\n", SDL_GetError());
             throw;
         }
 
@@ -55,7 +55,7 @@ namespace kabuki
 
     window::~window()
     {
-        _log->info("Cleaning up window resources.");
+        log()->info("Cleaning up window resources.");
         SDL_GL_DeleteContext(_sdl_gl_context);
         SDL_DestroyWindow(_sdl_window);
     }
@@ -71,12 +71,13 @@ namespace kabuki
         glewExperimental = GL_TRUE;
         if (GLEW_OK != glewInit()) 
         { 
-            _log->error("Could not initialize GLEW.");
+            log()->error("Could not initialize GLEW.");
             throw; 
         }
         
         SDL_GetWindowSize(_sdl_window, &screen_width, &screen_height);
         glViewport(0, 0, screen_width, screen_height);
+        //SDL_GL_SetSwapInterval(0);
     }
 
     void window::present()

@@ -9,9 +9,12 @@
 #define KABUKI_ENGINE_H_
 
 #include "input/input_manager.hpp"
+#include "audio/audio_manager.hpp"
 #include "engine_component.hpp"
 #include "stage.hpp"
 #include "window.hpp"
+
+#include <chrono>
 
 namespace kabuki
 {
@@ -22,7 +25,7 @@ namespace kabuki
          * Simplified initialization of the engine. The main window is set to
          * the desktop native resolution and is made fullscreen.
          */
-        static engine &initialize(const char *title)
+        static engine &initialize(std::string title)
         {
             return initialize(title, 0, 0, window_flags::FULLSCREEN);
         }
@@ -40,7 +43,7 @@ namespace kabuki
          * @param height        Height of the window in pixels
          * @param window_flags  Some extra flags for window creation
          */
-        static engine& initialize(const char *title, int width, int height, uint32_t window_flags)
+        static engine& initialize(std::string title, int width, int height, uint32_t window_flags)
         {
             static engine singleton(title, width, height, window_flags);
             return singleton;
@@ -49,12 +52,12 @@ namespace kabuki
         /**
          * Gets the input manager for the running engine.
          */
-        inline const input::input_manager *input_manager() const { return _input_manager.get(); }
+        inline input::input_manager *input_manager() const { return _input_manager.get(); }
 
         /**
          * Gets the main stage where all the entities in the engine perform.
          */
-        inline const stage *main_stage() const { return _stage.get(); }
+        inline stage *main_stage() const { return _stage.get(); }
 
         /**
          * Have the engine go through a single think cycle or "frame".
@@ -66,16 +69,27 @@ namespace kabuki
          */
         bool is_running() { return _is_running; }
 
+        /**
+         * Number of seconds since the engine was started.
+         */
+        double elapsed_seconds();
+
         // Cleanup
         ~engine();
 
     private:
-        engine(const char *title, int width, int height, uint32_t window_flags);
+        engine(std::string title, int width, int height, uint32_t window_flags);
         
         bool _is_running = true;
         std::unique_ptr<stage> _stage;
         std::unique_ptr<input::input_manager> _input_manager;
+        std::unique_ptr<audio::audio_manager> _audio_manager;
         std::unique_ptr<window> _main_window;
+        std::chrono::time_point<std::chrono::steady_clock> _startup_time;
+
+        // FPS
+        int fps_frames;
+        double fps_last_elapsed;
     };
 }
 

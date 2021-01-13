@@ -11,6 +11,11 @@ project(Kabuki)
 add_library(${PROJECT_NAME} STATIC  ./src/engine.cpp 
                                     ./src/window.cpp 
                                     ./src/stage.cpp 
+                                    ./src/entity.cpp
+                                    ./src/audio/audio_manager.cpp 
+                                    ./src/audio/audio_emitter.cpp 
+                                    ./src/audio/audio_listener.cpp 
+                                    ./src/audio/ogg_file.cpp 
                                     ./src/input/input_manager.cpp 
                                     ./src/input/keyboard.cpp 
                                     ./src/utility/log.cpp)
@@ -19,6 +24,14 @@ add_library(${PROJECT_NAME} STATIC  ./src/engine.cpp
 add_definitions(-DGLEW_STATIC)
 add_subdirectory(lib/glew EXCLUDE_FROM_ALL)
 target_link_libraries(${PROJECT_NAME} libglew_static)
+
+# SDL2
+add_subdirectory(lib/sdl2 EXCLUDE_FROM_ALL)
+target_link_libraries(${PROJECT_NAME} SDL2 SDL2main)
+
+# GLM
+add_subdirectory(lib/glm EXCLUDE_FROM_ALL)
+target_link_libraries(${PROJECT_NAME} glm)
 
 # SPDLOG
 add_subdirectory(lib/spdlog EXCLUDE_FROM_ALL)
@@ -31,9 +44,13 @@ add_subdirectory(lib/openal EXCLUDE_FROM_ALL)
 target_link_libraries(${PROJECT_NAME} OpenAL)
 set(CMAKE_BUILD_TYPE "${CMAKE_BUILD_TYPE_SAVED}")
 
-# SDL2
-add_subdirectory(lib/sdl2 EXCLUDE_FROM_ALL)
-target_link_libraries(${PROJECT_NAME} SDL2 SDL2main)
+# libogg
+add_subdirectory(lib/libogg EXCLUDE_FROM_ALL)
+target_link_libraries(${PROJECT_NAME} ogg)
+
+# libvorbis
+add_subdirectory(lib/vorbis EXCLUDE_FROM_ALL)
+target_link_libraries(${PROJECT_NAME} vorbis vorbisfile)
 
 # add includes
 target_include_directories(${PROJECT_NAME} PRIVATE "./include")

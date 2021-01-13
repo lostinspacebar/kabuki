@@ -9,12 +9,12 @@
 
 namespace kabuki
 {
-    stage::stage(const input::input_manager *input) : engine_component("stage")
+    stage::stage(const input::input_manager *input, const audio::audio_manager *audio) : engine_component("stage")
     {
         
     }
 
-    void stage::tick()
+    void stage::tick(double elapsed, double timeScale)
     {
         
     }

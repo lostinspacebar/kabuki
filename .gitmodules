@@ -13,3 +13,9 @@
 [submodule ".\\engine\\lib\\sdl2"]
 	path = .\\engine\\lib\\sdl2
 	url = https://github.com/SDL-mirror/SDL.git
+[submodule ".\\engine\\lib\\vorbis"]
+	path = .\\engine\\lib\\vorbis
+	url = https://github.com/xiph/vorbis.git
+[submodule ".\\engine\\lib\\libogg"]
+	path = .\\engine\\lib\\libogg
+	url = https://github.com/xiph/ogg.git

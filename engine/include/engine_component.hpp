@@ -15,13 +15,16 @@ namespace kabuki
     class engine_component
     {
     public:
-        engine_component(const char *tag)
+        engine_component(std::string tag)
         {
             _log = utility::log::create(tag);
         }
+
+        inline utility::log *log() { return _log.get(); }
+
         virtual ~engine_component() {}
-    protected:
-        std::shared_ptr<utility::log> _log;
+    private:
+        std::unique_ptr<utility::log> _log;
     };
 }
 

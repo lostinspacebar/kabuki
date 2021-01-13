@@ -10,7 +10,9 @@
 
 #include "engine_component.hpp"
 #include "scene.hpp"
+#include "audio/audio_manager.hpp"
 #include "input/input_manager.hpp"
+
 #include <map>
 
 namespace kabuki
@@ -18,7 +20,7 @@ namespace kabuki
     class stage : public engine_component
     {
     public:
-        stage(const input::input_manager *input);
+        stage(const input::input_manager *input, const audio::audio_manager *audio);
 
         /**
          * Create an empty scene with the specified scene id.
@@ -39,17 +41,17 @@ namespace kabuki
         /**
          * Move the events on stage forward by one tick.
          */
-        void tick();
+        void tick(double elapsedSec, double timeScale);
 
         /**
          * Gets the current scene being shown on stage.
          */
-        inline const scene *current_scene() const { return this->scene_by_id(_current_scene_id); }
+        inline scene *current_scene() const { return this->scene_by_id(_current_scene_id); }
 
         /**
          * Gets the scene with the specified ID
          */
-        inline const scene *scene_by_id(std::string scene_id) const 
+        inline scene *scene_by_id(std::string scene_id) const 
         { 
             auto it = _scenes.find(scene_id);
             if(it != _scenes.end())
@@ -58,6 +60,7 @@ namespace kabuki
             }
             return nullptr;
         }
+
     private:
         std::string _current_scene_id;
         std::map<std::string, std::unique_ptr<scene>> _scenes;

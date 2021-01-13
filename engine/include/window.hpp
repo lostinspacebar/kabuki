@@ -50,7 +50,7 @@ namespace kabuki
          * @param height            Height of the window in pixels
          * @param window_flags      Extra flags for the window
          */
-        window(const char *title, int width, int height, uint32_t window_flags);
+        window(std::string title, int width, int height, uint32_t window_flags);
 
         // Underlying SDL window handle.
         SDL_Window *_sdl_window;

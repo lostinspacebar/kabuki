@@ -23,7 +23,7 @@ namespace kabuki::utility
          * 
          * @param   tag Tag to added to every log message from this Log.
          */
-        static std::shared_ptr<log> create(const char *tag);
+        static std::unique_ptr<log> create(std::string tag);
         
         /**
          * Writes to the log with the DEBUG log level.
@@ -60,7 +60,7 @@ namespace kabuki::utility
         /**
          * Private constructor
          */
-        log(const char *tag);
+        log(std::string tag);
 
         // Implementation specific log instance
         std::shared_ptr<spdlog::logger> _impl_log;

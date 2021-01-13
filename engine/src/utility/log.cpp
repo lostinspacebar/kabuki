@@ -10,12 +10,12 @@
 
 namespace kabuki::utility
 {
-    std::shared_ptr<log> log::create(const char *tag)
+    std::unique_ptr<log> log::create(std::string tag)
     {
-        return std::shared_ptr<log>(new log(tag));
+        return std::unique_ptr<log>(new log(tag));
     }
 
-    log::log(const char *tag)
+    log::log(std::string tag)
     {
         spdlog::default_logger()->set_level(spdlog::level::info);
         _impl_log = spdlog::default_logger()->clone(tag);

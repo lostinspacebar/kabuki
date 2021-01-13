@@ -27,7 +27,7 @@ namespace kabuki::input
         /**
          * Get the current keyboard state.
          */
-        inline const keyboard_state *keyboard() const { return _keyboard.get(); }
+        inline keyboard_state *keyboard() const { return _keyboard.get(); }
 
     private:
         std::unique_ptr<keyboard_state> _keyboard;

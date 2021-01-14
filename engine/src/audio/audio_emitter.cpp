@@ -7,6 +7,7 @@
 
 #include "audio/audio_emitter.hpp"
 #include "audio/ogg_file.hpp"
+#include "audio/wav_file.hpp"
 #include "utility/path_utils.hpp"
 #include "audio/audio_utils.hpp"
 
@@ -33,7 +34,31 @@ namespace kabuki::audio
             log()->error("Could not generate OpenAL buffer for audio file: {0}", file_path);
             throw std::runtime_error("Could not generate OpenAL buffer");
         }
-        ALenum format = _audio_stream->num_channels() > 1 ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16;
+
+        ALenum format;
+        if(_audio_stream->num_channels() == 1)
+        {
+            if(_audio_stream->bits_per_sample() == 8)
+            {
+                format = AL_FORMAT_MONO8;
+            }
+            else
+            {
+                format = AL_FORMAT_MONO16;
+            }
+            
+        }
+        else
+        {
+            if(_audio_stream->bits_per_sample() == 8)
+            {
+                format = AL_FORMAT_STEREO8;
+            }
+            else
+            {
+                format = AL_FORMAT_STEREO16;
+            }
+        }
         
         // Allocate memory for the audio data
         // TODO: Is there a non malloc way to do this?
@@ -213,6 +238,10 @@ namespace kabuki::audio
         if(utility::path::has_extension(file_path, ".ogg"))
         {
             return std::make_unique<ogg_file>(file_path);
+        }
+        else if(utility::path::has_extension(file_path, ".wav"))
+        {
+            return std::make_unique<wav_file>(file_path);
         }
         return nullptr;
     }

@@ -48,8 +48,8 @@ namespace kabuki
         fps_frames = 0;
         fps_last_elapsed = 0;
 
-        audio::audio_emitter *emitter = _audio_manager->create_emitter("test_ogg");
-        emitter->load("test-mono.ogg");
+        audio::audio_emitter *emitter = _audio_manager->create_emitter("test_audio");
+        emitter->load("test.wav");
         emitter->play(true);
         emitter->set_position(0, 0, 0);
 
@@ -82,7 +82,7 @@ namespace kabuki
                 {
                     pos = 20;
                 }
-                _audio_manager->emitter_by_id("test_ogg")->set_position(pos, pos, 0);
+                _audio_manager->emitter_by_id("test_audio")->set_position(pos, pos, 0);
             }
             else if(_input_manager->keyboard()->is_key_pressed(kabuki::input::keyboard_key::KEY_S))
             {
@@ -92,7 +92,7 @@ namespace kabuki
                 {
                     pos = -20;
                 }
-                _audio_manager->emitter_by_id("test_ogg")->set_position(pos, pos, 0);
+                _audio_manager->emitter_by_id("test_audio")->set_position(pos, pos, 0);
             }
 
             // Handle any engine level events.

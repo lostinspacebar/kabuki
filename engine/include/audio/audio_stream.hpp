@@ -16,8 +16,9 @@ namespace kabuki::audio
         audio_stream() {}
         virtual ~audio_stream() {}
 
+        virtual long bits_per_sample() = 0;
         virtual long sample_rate() = 0;
-        virtual uint8_t num_channels() = 0;
+        virtual int num_channels() = 0;
         virtual size_t length() = 0;
         virtual size_t read(char *buffer, size_t offset, size_t count) = 0;
     };

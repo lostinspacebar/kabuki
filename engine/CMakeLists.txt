@@ -15,6 +15,7 @@ add_library(${PROJECT_NAME} STATIC  ./src/engine.cpp
                                     ./src/audio/audio_manager.cpp 
                                     ./src/audio/audio_emitter.cpp 
                                     ./src/audio/audio_listener.cpp 
+                                    ./src/audio/wav_file.cpp 
                                     ./src/audio/ogg_file.cpp 
                                     ./src/input/input_manager.cpp 
                                     ./src/input/keyboard.cpp 
